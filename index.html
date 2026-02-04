@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>For Agamya 💖</title>
+
+  <style>
+    body {
+      font-family: 'Comic Neue', 'Segoe UI', sans-serif;
+      background: linear-gradient(270deg, #ffd6e8, #fff1c1, #d7f9f1, #e0c3fc);
+      background-size: 800% 800%;
+      animation: bgMove 15s ease infinite;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    @keyframes bgMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* floating clouds */
+    .cloud {
+      position: absolute;
+      top: 10%;
+      width: 120px;
+      opacity: 0.3;
+      animation: cloudMove 40s linear infinite;
+    }
+
+    .cloud:nth-child(1) { top: 15%; left: -150px; animation-duration: 50s; }
+    .cloud:nth-child(2) { top: 30%; left: -200px; animation-duration: 60s; }
+
+    @keyframes cloudMove {
+      from { transform: translateX(-200px); }
+      to { transform: translateX(120vw); }
+    }
+
+    .card {
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(10px);
+      padding: 30px;
+      border-radius: 28px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+      max-width: 360px;
+      text-align: center;
+      z-index: 2;
+    }
+
+    h1 {
+      color: #ff6fa5;
+      margin-bottom: 10px;
+    }
+
+    .shake {
+      animation: shake 0.6s infinite;
+    }
+
+    @keyframes shake {
+      0% { transform: rotate(0deg); }
+      25% { transform: rotate(2deg); }
+      50% { transform: rotate(-2deg); }
+      75% { transform: rotate(2deg); }
+      100% { transform: rotate(0deg); }
+    }
+
+    button {
+      padding: 12px 24px;
+      margin: 10px;
+      border: none;
+      border-radius: 999px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+    }
+
+    .yes {
+      background: linear-gradient(135deg, #ff6fa5, #ff9ecf);
+      color: white;
+      box-shadow: 0 6px 12px rgba(255,111,165,0.4);
+    }
+
+    .no {
+      background-color: #e0e0e0;
+    }
+
+    .hidden { display: none; }
+
+    img {
+      width: 200px;
+      margin-top: 15px;
+      border-radius: 20px;
+      cursor: pointer;
+    }
+
+    /* floating hearts */
+    .heart {
+      position: absolute;
+      bottom: -20px;
+      font-size: 18px;
+      animation: floatUp 6s infinite ease-in;
+      color: #ff6fa5;
+      opacity: 0.6;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0); opacity: 0; }
+      50% { opacity: 1; }
+      100% { transform: translateY(-110vh); opacity: 0; }
+    }
+
+    .confetti {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      animation: fall 3s linear forwards;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(100vh) rotate(720deg);
+        opacity: 0;
+      }
+    }
+
+    .easter {
+      margin-top: 10px;
+      font-size: 15px;
+      color: #ff6fa5;
+      animation: pop 0.5s ease;
+    }
+
+    @keyframes pop {
+      0% { transform: scale(0.5); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- clouds -->
+  <img class="cloud" src="https://i.imgur.com/QpFQF5S.png">
+  <img class="cloud" src="https://i.imgur.com/QpFQF5S.png">
+
+  <div class="card">
+    <h1 id="name">Agamya 💕</h1>
+    <p id="text">Will you be my Galentine? 🌸</p>
+
+    <div id="buttons">
+      <button class="yes" onclick="sayYes()">Yes 😘</button>
+      <button class="no" id="noBtn">No 🙄</button>
+    </div>
+
+    <div id="message" class="hidden">
+      <p style="font-size:19px; color:#ff6fa5;">
+        I love you Agammssss 💖<br>
+        my angry bird 😘♥️<br><br>
+        <strong>PR merged successfully 💍✨</strong><br>
+        <em>You’re stuck with me now 😌</em>
+      </p>
+
+      <img id="bear"
+        src="https://media.tenor.com/2roX3uxz_68AAAAC/bear-cheek-squish.gif">
+
+      <div id="easterMsg" class="easter hidden">
+        🧸 “Hey! Stop pulling cheeks… she’s precious 😤💗”
+      </div>
+    </div>
+  </div>
+
+  <audio id="popSound">
+    <source src="https://www.myinstants.com/media/sounds/pop-cat-original.mp3">
+  </audio>
+
+  <script>
+    let noCount = 0;
+    let eggOpened = false;
+
+    function sayYes() {
+      document.getElementById("text").classList.add("hidden");
+      document.getElementById("buttons").classList.add("hidden");
+      document.getElementById("message").classList.remove("hidden");
+      document.getElementById("name").classList.add("shake");
+      document.getElementById("popSound").play();
+      launchConfetti();
+    }
+
+    const noBtn = document.getElementById("noBtn");
+    noBtn.addEventListener("mouseover", () => {
+      noCount++;
+      if (noCount >= 3) { sayYes(); return; }
+      noBtn.style.transform =
+        `translate(${Math.random()*200-100}px, ${Math.random()*200-100}px)`;
+    });
+
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.innerHTML = "💗";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = (4 + Math.random() * 4) + "s";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 8000);
+    }
+    setInterval(createHeart, 600);
+
+    function launchConfetti() {
+      for (let i = 0; i < 60; i++) {
+        const c = document.createElement("div");
+        c.className = "confetti";
+        c.style.left = Math.random() * 100 + "vw";
+        c.style.top = "-10px";
+        c.style.backgroundColor =
+          ["#ff6fa5","#ffd6e8","#a0e7e5","#bdb2ff"][Math.floor(Math.random()*4)];
+        document.body.appendChild(c);
+        setTimeout(() => c.remove(), 3000);
+      }
+    }
+
+    document.getElementById("bear").addEventListener("click", () => {
+      if (eggOpened) return;
+      eggOpened = true;
+      document.getElementById("easterMsg").classList.remove("hidden");
+      launchConfetti();
+    });
+  </script>
+
+</body>
+</html>
