@@ -24,25 +24,8 @@
       100% { background-position: 0% 50%; }
     }
 
-    /* floating clouds */
-    .cloud {
-      position: absolute;
-      top: 10%;
-      width: 120px;
-      opacity: 0.3;
-      animation: cloudMove 40s linear infinite;
-    }
-
-    .cloud:nth-child(1) { top: 15%; left: -150px; animation-duration: 50s; }
-    .cloud:nth-child(2) { top: 30%; left: -200px; animation-duration: 60s; }
-
-    @keyframes cloudMove {
-      from { transform: translateX(-200px); }
-      to { transform: translateX(120vw); }
-    }
-
     .card {
-      background: rgba(255,255,255,0.85);
+      background: rgba(255,255,255,0.9);
       backdrop-filter: blur(10px);
       padding: 30px;
       border-radius: 28px;
@@ -86,23 +69,17 @@
     .yes {
       background: linear-gradient(135deg, #ff6fa5, #ff9ecf);
       color: white;
-      box-shadow: 0 6px 12px rgba(255,111,165,0.4);
     }
 
     .no {
       background-color: #e0e0e0;
     }
 
-    .hidden { display: none; }
-
-    img {
-      width: 200px;
-      margin-top: 15px;
-      border-radius: 20px;
-      cursor: pointer;
+    .hidden {
+      display: none;
     }
 
-    /* floating hearts */
+    /* Floating hearts */
     .heart {
       position: absolute;
       bottom: -20px;
@@ -117,40 +94,10 @@
       50% { opacity: 1; }
       100% { transform: translateY(-110vh); opacity: 0; }
     }
-
-    .confetti {
-      position: absolute;
-      width: 8px;
-      height: 8px;
-      animation: fall 3s linear forwards;
-    }
-
-    @keyframes fall {
-      to {
-        transform: translateY(100vh) rotate(720deg);
-        opacity: 0;
-      }
-    }
-
-    .easter {
-      margin-top: 10px;
-      font-size: 15px;
-      color: #ff6fa5;
-      animation: pop 0.5s ease;
-    }
-
-    @keyframes pop {
-      0% { transform: scale(0.5); opacity: 0; }
-      100% { transform: scale(1); opacity: 1; }
-    }
   </style>
 </head>
 
 <body>
-
-  <!-- clouds -->
-  <img class="cloud" src="https://i.imgur.com/QpFQF5S.png">
-  <img class="cloud" src="https://i.imgur.com/QpFQF5S.png">
 
   <div class="card">
     <h1 id="name">Agamya 💕</h1>
@@ -165,16 +112,8 @@
       <p style="font-size:19px; color:#ff6fa5;">
         I love you Agammssss 💖<br>
         my angry bird 😘♥️<br><br>
-        <strong>PR merged successfully 💍✨</strong><br>
         <em>You’re stuck with me now 😌</em>
       </p>
-
-      <img id="bear"
-        src="https://media.tenor.com/2roX3uxz_68AAAAC/bear-cheek-squish.gif">
-
-      <div id="easterMsg" class="easter hidden">
-        🧸 “Hey! Stop pulling cheeks… she’s precious 😤💗”
-      </div>
     </div>
   </div>
 
@@ -184,7 +123,6 @@
 
   <script>
     let noCount = 0;
-    let eggOpened = false;
 
     function sayYes() {
       document.getElementById("text").classList.add("hidden");
@@ -192,13 +130,15 @@
       document.getElementById("message").classList.remove("hidden");
       document.getElementById("name").classList.add("shake");
       document.getElementById("popSound").play();
-      launchConfetti();
     }
 
     const noBtn = document.getElementById("noBtn");
     noBtn.addEventListener("mouseover", () => {
       noCount++;
-      if (noCount >= 3) { sayYes(); return; }
+      if (noCount >= 3) {
+        sayYes();
+        return;
+      }
       noBtn.style.transform =
         `translate(${Math.random()*200-100}px, ${Math.random()*200-100}px)`;
     });
@@ -213,26 +153,6 @@
       setTimeout(() => heart.remove(), 8000);
     }
     setInterval(createHeart, 600);
-
-    function launchConfetti() {
-      for (let i = 0; i < 60; i++) {
-        const c = document.createElement("div");
-        c.className = "confetti";
-        c.style.left = Math.random() * 100 + "vw";
-        c.style.top = "-10px";
-        c.style.backgroundColor =
-          ["#ff6fa5","#ffd6e8","#a0e7e5","#bdb2ff"][Math.floor(Math.random()*4)];
-        document.body.appendChild(c);
-        setTimeout(() => c.remove(), 3000);
-      }
-    }
-
-    document.getElementById("bear").addEventListener("click", () => {
-      if (eggOpened) return;
-      eggOpened = true;
-      document.getElementById("easterMsg").classList.remove("hidden");
-      launchConfetti();
-    });
   </script>
 
 </body>
